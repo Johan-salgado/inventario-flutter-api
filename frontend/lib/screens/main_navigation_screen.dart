@@ -1,6 +1,3 @@
-// lib/screens/main_navigation_screen.dart
-// Pantalla contenedor con BottomNavigationBar para alternar entre Dashboard y Productos
-
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'productos_screen.dart';

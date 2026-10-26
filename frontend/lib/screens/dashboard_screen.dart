@@ -1,6 +1,3 @@
-// lib/screens/dashboard_screen.dart
-// Pantalla de inicio con los indicadores generales calculados en tiempo real
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +25,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _cargarDatos();
   }
 
-  // Metodo para consultar los datos a traves del servicio de Dio
   Future<void> _cargarDatos() async {
     setState(() {
       _cargando = true;
@@ -49,7 +45,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  // Calculos para los indicadores solicitados en la seccion 4.1
   int get _totalProductos => _productos.length;
 
   int get _totalUnidades {
@@ -60,7 +55,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return _productos.fold(0.0, (suma, item) => suma + (item.precio * item.cantidad));
   }
 
-  // Formato de moneda para que se vea claro y ordenado
   String _formatearMoneda(double valor) {
     final formato = NumberFormat.currency(locale: 'es_CO', symbol: '\$', decimalDigits: 0);
     return formato.format(valor);
@@ -75,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'Actualizar indicadores',
+            tooltip: 'Actualizar',
             onPressed: _cargarDatos,
           ),
         ],
@@ -88,7 +82,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _construirCuerpo() {
-    // 1. Estado de Carga
     if (_cargando) {
       return const Center(
         child: Column(
@@ -102,7 +95,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       );
     }
 
-    // 2. Estado de Error
     if (_error != null) {
       return Center(
         child: Padding(
@@ -135,11 +127,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       );
     }
 
-    // 3. Vista principal con las tarjetas solicitadas
     return ListView(
       padding: const EdgeInsets.all(16.0),
       children: [
-        // Encabezado de identificacion de la app
         Card(
           elevation: 2,
           color: Colors.blue.shade50,
@@ -174,15 +164,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ),
-
         const SizedBox(height: 16),
         const Text(
           'Resumen General',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
-
-        // Tarjeta 1: Total de productos registrados
         _construirTarjetaMetrica(
           titulo: 'Productos Registrados',
           valor: '$_totalProductos',
@@ -190,10 +177,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           icono: Icons.category,
           color: Colors.indigo,
         ),
-
         const SizedBox(height: 12),
-
-        // Tarjeta 2: Total de unidades disponibles
         _construirTarjetaMetrica(
           titulo: 'Unidades en Stock',
           valor: '$_totalUnidades',
@@ -201,10 +185,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           icono: Icons.all_inbox,
           color: Colors.teal,
         ),
-
         const SizedBox(height: 12),
-
-        // Tarjeta 3: Valor economico total del inventario (precio x cantidad)
         _construirTarjetaMetrica(
           titulo: 'Valor Total del Inventario',
           valor: _formatearMoneda(_valorEconomicoTotal),
@@ -212,16 +193,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           icono: Icons.attach_money,
           color: Colors.green.shade700,
         ),
-
         const SizedBox(height: 24),
-
-        // Accesos rapidos a la gestion
         const Text(
           'Acciones Rapidas',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
-
         Row(
           children: [
             Expanded(
@@ -264,7 +241,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // Widget auxiliar para las tarjetas de estadisticas
   Widget _construirTarjetaMetrica({
     required String titulo,
     required String valor,

@@ -1,6 +1,3 @@
-// lib/models/producto.dart
-// Modelo que representa la entidad Producto solicitada en el parcial
-
 class Producto {
   final int? id;
   final String nombre;
@@ -20,7 +17,6 @@ class Producto {
     required this.categoria,
   });
 
-  // Constructor factory para deserializar la respuesta JSON de la API
   factory Producto.fromJson(Map<String, dynamic> json) {
     return Producto(
       id: json['id'] != null ? int.tryParse(json['id'].toString()) : null,
@@ -37,7 +33,6 @@ class Producto {
     );
   }
 
-  // Metodo para serializar el objeto a JSON para peticiones POST y PUT
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
@@ -50,6 +45,5 @@ class Producto {
     };
   }
 
-  // Calculo del valor total del producto (precio * cantidad)
   double get valorTotalInventario => precio * cantidad;
 }

@@ -1,21 +1,16 @@
-// database.js - Conexion y configuracion de la base de datos SQLite
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-// Ruta donde se guardara el archivo de la base de datos
 const dbPath = path.resolve(__dirname, 'inventario.db');
 
-// Crear o abrir la base de datos
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error('Error al conectar con la base de datos SQLite:', err.message);
+    console.error('Error al conectar con la base de datos:', err.message);
   } else {
-    console.log('Conectado exitosamente a la base de datos SQLite (inventario.db)');
     inicializarBaseDatos();
   }
 });
 
-// Funcion para crear la tabla y agregar productos iniciales si esta vacia
 function inicializarBaseDatos() {
   const sqlCrearTabla = `
     CREATE TABLE IF NOT EXISTS productos (
@@ -30,22 +25,12 @@ function inicializarBaseDatos() {
   `;
 
   db.run(sqlCrearTabla, (err) => {
-    if (err) {
-      console.error('Error al crear la tabla productos:', err.message);
-      return;
-    }
+    if (err) return;
 
-    // Verificar si ya existen productos registrados
     db.get('SELECT COUNT(*) AS total FROM productos', (err, row) => {
-      if (err) {
-        console.error('Error al contar productos:', err.message);
-        return;
-      }
+      if (err) return;
 
-      // Si la tabla esta vacia, insertamos al menos 10 productos de prueba (requisito 3.3)
       if (row.total === 0) {
-        console.log('Tabla vacia. Insertando productos de prueba iniciales...');
-
         const productosSemilla = [
           ['Laptop Lenovo ThinkPad', 'PROD-001', 'Intel Core i5, 16GB RAM, 512GB SSD', 2850000, 15, 'Computadores'],
           ['Mouse Inalambrico Logitech', 'PROD-002', 'Conexion Bluetooth y USB 2.4Ghz', 75000, 40, 'Accesorios'],
@@ -71,8 +56,6 @@ function inicializarBaseDatos() {
           stmt.run(producto);
         });
         stmt.finalize();
-
-        console.log('Se registraron exitosamente los 12 productos de prueba.');
       }
     });
   });

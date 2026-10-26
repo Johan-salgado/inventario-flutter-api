@@ -1,6 +1,3 @@
-// lib/screens/producto_form_screen.dart
-// Formulario reutilizable para Registrar (POST) y Editar (PUT) un producto
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../models/producto.dart';
@@ -19,7 +16,6 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final ProductoService _productoService = ProductoService();
 
-  // Controladores de texto para los campos del formulario
   late TextEditingController _nombreCtrl;
   late TextEditingController _codigoCtrl;
   late TextEditingController _descripcionCtrl;
@@ -30,7 +26,6 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
   bool _esEdicion = false;
   bool _guardando = false;
 
-  // Lista de sugerencias de categorias frecuentes
   final List<String> _categoriasSugeridas = [
     'Computadores',
     'Accesorios',
@@ -69,9 +64,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
     super.dispose();
   }
 
-  // Metodo para procesar y enviar el formulario mediante Dio
   Future<void> _guardarProducto() async {
-    // Validar el formulario en el cliente
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -92,7 +85,6 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
       );
 
       if (_esEdicion) {
-        // Enviar peticion PUT
         await _productoService.actualizarProducto(
           widget.productoParaEditar!.id!,
           productoDatos,
@@ -106,7 +98,6 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
           );
         }
       } else {
-        // Enviar peticion POST
         await _productoService.crearProducto(productoDatos);
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -119,7 +110,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
       }
 
       if (mounted) {
-        context.pop(true); // Retorna true para refrescar las listas
+        context.pop(true);
       }
     } catch (e) {
       if (mounted) {
@@ -160,7 +151,6 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Mensaje introductorio
               Card(
                 color: Colors.blue.shade50,
                 elevation: 0,
@@ -183,10 +173,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 16),
-
-              // Campo Nombre
               TextFormField(
                 controller: _nombreCtrl,
                 decoration: const InputDecoration(
@@ -202,10 +189,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                   return null;
                 },
               ),
-
               const SizedBox(height: 14),
-
-              // Campo Codigo
               TextFormField(
                 controller: _codigoCtrl,
                 decoration: const InputDecoration(
@@ -221,10 +205,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                   return null;
                 },
               ),
-
               const SizedBox(height: 14),
-
-              // Campo Categoria con Autocomplete o texto
               Autocomplete<String>(
                 initialValue: TextEditingValue(text: _categoriaCtrl.text),
                 optionsBuilder: (TextEditingValue valor) {
@@ -238,7 +219,6 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                   _categoriaCtrl.text = seleccion;
                 },
                 fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
-                  // Sincronizar el controlador
                   controller.addListener(() {
                     _categoriaCtrl.text = controller.text;
                   });
@@ -260,14 +240,10 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                   );
                 },
               ),
-
               const SizedBox(height: 14),
-
-              // Fila con Precio y Cantidad
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Campo Precio
                   Expanded(
                     child: TextFormField(
                       controller: _precioCtrl,
@@ -289,10 +265,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                       },
                     ),
                   ),
-
                   const SizedBox(width: 12),
-
-                  // Campo Cantidad
                   Expanded(
                     child: TextFormField(
                       controller: _cantidadCtrl,
@@ -316,10 +289,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 14),
-
-              // Campo Descripcion (opcional)
               TextFormField(
                 controller: _descripcionCtrl,
                 maxLines: 3,
@@ -331,10 +301,7 @@ class _ProductoFormScreenState extends State<ProductoFormScreen> {
                   alignLabelWithHint: true,
                 ),
               ),
-
               const SizedBox(height: 24),
-
-              // Boton Guardar / Actualizar
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),

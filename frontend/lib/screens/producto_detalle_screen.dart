@@ -1,6 +1,3 @@
-// lib/screens/producto_detalle_screen.dart
-// Pantalla para consultar el detalle completo de un producto (GET /api/productos/:id)
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +25,6 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
     _cargarDetalle();
   }
 
-  // Peticion GET /api/productos/:id con Dio
   Future<void> _cargarDetalle() async {
     setState(() {
       _cargando = true;
@@ -81,7 +77,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
               backgroundColor: Colors.green,
             ),
           );
-          context.pop(true); // Retorna true para que la lista se refresque
+          context.pop(true);
         }
       } catch (e) {
         if (mounted) {
@@ -172,7 +168,6 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Tarjeta principal con el nombre y categoria
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -211,10 +206,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
               ),
             ),
           ),
-
           const SizedBox(height: 16),
-
-          // Informacion financiera y stock
           Row(
             children: [
               Expanded(
@@ -268,10 +260,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
               ),
             ],
           ),
-
           const SizedBox(height: 12),
-
-          // Valor total en inventario
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -296,10 +285,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
               ),
             ),
           ),
-
           const SizedBox(height: 16),
-
-          // Tarjeta de descripcion
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

@@ -1,6 +1,3 @@
-// test/widget_test.dart
-// Pruebas unitarias para el modelo Producto
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:inventario_app/models/producto.dart';
 
@@ -25,7 +22,7 @@ void main() {
       expect(producto.precio, 150000.0);
       expect(producto.cantidad, 10);
       expect(producto.categoria, 'Accesorios');
-      expect(producto.valorTotalInventario, 1500000.0); // 150000 * 10
+      expect(producto.valorTotalInventario, 1500000.0);
     });
 
     test('Debe convertir un Producto a Map JSON correctamente', () {

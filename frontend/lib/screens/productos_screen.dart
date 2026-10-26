@@ -1,6 +1,3 @@
-// lib/screens/productos_screen.dart
-// Pantalla para listar productos y gestionar el CRUD completo
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +23,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
     _cargarProductos();
   }
 
-  // Consulta los productos de la API mediante Dio
   Future<void> _cargarProductos() async {
     setState(() {
       _cargando = true;
@@ -47,7 +43,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
     }
   }
 
-  // Metodo para eliminar un producto solicitando confirmacion previa
   Future<void> _confirmarYEliminar(Producto producto) async {
     final confirmar = await showDialog<bool>(
       context: context,
@@ -81,7 +76,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
               backgroundColor: Colors.green,
             ),
           );
-          _cargarProductos(); // Refrescar lista
+          _cargarProductos();
         }
       } catch (e) {
         if (mounted) {
@@ -117,7 +112,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          // Navegar a la pantalla de crear producto
           final resultado = await context.push('/productos/nuevo');
           if (resultado == true) {
             _cargarProductos();
@@ -134,7 +128,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
   }
 
   Widget _construirContenido() {
-    // 1. Estado de carga
     if (_cargando) {
       return const Center(
         child: Column(
@@ -148,7 +141,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
       );
     }
 
-    // 2. Estado de error
     if (_error != null) {
       return Center(
         child: Padding(
@@ -180,7 +172,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
       );
     }
 
-    // 3. Ausencia de registros (Empty state)
     if (_productos.isEmpty) {
       return Center(
         child: Column(
@@ -211,7 +202,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
       );
     }
 
-    // 4. Listado con tarjetas
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       itemCount: _productos.length,
@@ -223,11 +213,10 @@ class _ProductosScreenState extends State<ProductosScreen> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            // Tocar la tarjeta abre el detalle
             onTap: () async {
               final res = await context.push('/productos/detalle/${p.id}');
               if (res == true) {
-                _cargarProductos(); // Por si se edito o elimino desde el detalle
+                _cargarProductos();
               }
             },
             leading: CircleAvatar(
@@ -286,7 +275,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Boton Editar
                 IconButton(
                   icon: const Icon(Icons.edit, color: Colors.blueAccent),
                   tooltip: 'Editar',
@@ -297,7 +285,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
                     }
                   },
                 ),
-                // Boton Eliminar
                 IconButton(
                   icon: const Icon(Icons.delete_outline, color: Colors.red),
                   tooltip: 'Eliminar',

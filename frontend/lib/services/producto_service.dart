@@ -1,6 +1,3 @@
-// lib/services/producto_service.dart
-// Servicio para manejar toda la comunicacion HTTP con el backend mediante Dio
-
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../models/producto.dart';
@@ -9,8 +6,6 @@ class ProductoService {
   late final Dio _dio;
 
   ProductoService() {
-    // Obtenemos la URL base desde el archivo .env usando flutter_dotenv
-    // Si dotenv no esta inicializado o no existe la variable, usamos localhost por defecto
     String baseUrl = 'http://localhost:3000/api';
     if (dotenv.isInitialized) {
       baseUrl = dotenv.env['API_BASE_URL'] ?? baseUrl;
@@ -29,7 +24,6 @@ class ProductoService {
     );
   }
 
-  // 1. Obtener todos los productos (GET /api/productos)
   Future<List<Producto>> obtenerProductos() async {
     try {
       final response = await _dio.get('/productos');
@@ -47,7 +41,6 @@ class ProductoService {
     }
   }
 
-  // 2. Obtener un producto por su ID (GET /api/productos/:id)
   Future<Producto> obtenerProductoPorId(int id) async {
     try {
       final response = await _dio.get('/productos/$id');
@@ -64,7 +57,6 @@ class ProductoService {
     }
   }
 
-  // 3. Registrar un nuevo producto (POST /api/productos)
   Future<Producto> crearProducto(Producto producto) async {
     try {
       final response = await _dio.post(
@@ -84,7 +76,6 @@ class ProductoService {
     }
   }
 
-  // 4. Actualizar un producto existente (PUT /api/productos/:id)
   Future<Producto> actualizarProducto(int id, Producto producto) async {
     try {
       final response = await _dio.put(
@@ -104,7 +95,6 @@ class ProductoService {
     }
   }
 
-  // 5. Eliminar un producto (DELETE /api/productos/:id)
   Future<void> eliminarProducto(int id) async {
     try {
       final response = await _dio.delete('/productos/$id');
@@ -119,7 +109,6 @@ class ProductoService {
     }
   }
 
-  // Metodo auxiliar para procesar y formatear errores de Dio
   String _procesarErrorDio(DioException e, String mensajePorDefecto) {
     if (e.response != null) {
       final data = e.response?.data;
