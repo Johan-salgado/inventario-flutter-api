@@ -1,0 +1,135 @@
+{
+  "info": {
+    "_postman_id": "c1f7b8a2-9e8a-4d2a-8b1e-3a7d5c9e2b01",
+    "name": "API Gestion Inventario - Electiva Profesional I",
+    "description": "Coleccion de pruebas para la API REST del Segundo Parcial Practico",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Listar Productos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/productos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "productos"]
+        }
+      }
+    },
+    {
+      "name": "2. Detalle Producto (ID 1)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/productos/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "productos", "1"]
+        }
+      }
+    },
+    {
+      "name": "3. Detalle No Encontrado (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/productos/9999",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "productos", "9999"]
+        }
+      }
+    },
+    {
+      "name": "4. Crear Producto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Audifonos Bluetooth Sony\",\n  \"codigo\": \"AUD-501\",\n  \"descripcion\": \"Cancelacion de ruido activa y bateria 30h\",\n  \"precio\": 350000,\n  \"cantidad\": 14,\n  \"categoria\": \"Audio\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/productos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "productos"]
+        }
+      }
+    },
+    {
+      "name": "5. Crear Producto - Error Validacion (422)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Sin codigo ni precio\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/productos",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "productos"]
+        }
+      }
+    },
+    {
+      "name": "6. Actualizar Producto (ID 1)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Laptop Lenovo ThinkPad Modificada\",\n  \"codigo\": \"PROD-001\",\n  \"descripcion\": \"Intel Core i7 con 32GB RAM\",\n  \"precio\": 3100000,\n  \"cantidad\": 18,\n  \"categoria\": \"Computadores\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/productos/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "productos", "1"]
+        }
+      }
+    },
+    {
+      "name": "7. Eliminar Producto",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/productos/11",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "productos", "11"]
+        }
+      }
+    }
+  ]
+}
