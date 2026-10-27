@@ -391,3 +391,25 @@ Ejemplo: `docs: actualiza README con ejecución en emulador Android y solución 
 ## 11. Seguridad
 
 No se incluyen contraseñas, credenciales ni secretos en el repositorio. Los archivos `.env` contienen únicamente la URL base de la API (Flutter) y el puerto (backend).
+
+---
+
+## 12. Capturas de Pantalla
+
+### Dashboard
+![Dashboard](capturas/flutter/01-dashboard.png)
+
+### Listado de productos
+![Listado de productos](capturas/flutter/02-listado-productos.png)
+
+### Detalle de un producto
+![Detalle de producto](capturas/flutter/03-detalle-producto.png)
+
+### Registro de producto
+![Formulario de registro](capturas/flutter/04-registro-formulario.png)
+
+### Validación del formulario
+![Validación de campos](capturas/flutter/05-registro-validacion-error.png)
+
+### Confirmación de eliminación
+![Confirmación de eliminación](capturas/flutter/06-eliminacion-confirmacion.png)
