@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
+const verificarToken = require('../middleware/auth');
+
+router.use(verificarToken);
 
 router.get('/', (req, res) => {
   const sql = 'SELECT * FROM productos ORDER BY id DESC';

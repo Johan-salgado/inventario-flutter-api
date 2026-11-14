@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'router/app_router.dart';
+import 'services/auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +11,8 @@ Future<void> main() async {
   } catch (e) {
     debugPrint('$e');
   }
+
+  AuthService().verificarSesion();
 
   runApp(const MiInventarioApp());
 }
