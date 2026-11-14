@@ -197,8 +197,13 @@ Todas las rutas de `/api/productos` requieren el encabezado `Authorization: Bear
 #### Backend (`backend/.env`)
 ```env
 PORT=3000
-JWT_SECRET=tu_clave_secreta_aqui
+JWT_SECRET=genera_una_clave_secreta_segura_aqui_no_uses_este_texto
 JWT_EXPIRES_IN=1h
+```
+
+Para generar una clave secreta segura propia de 256 bits (32 bytes en formato hexadecimal), puedes ejecutar en la terminal:
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
 #### Frontend (`frontend/.env`)
@@ -206,7 +211,7 @@ JWT_EXPIRES_IN=1h
 API_BASE_URL=http://localhost:3000/api
 ```
 
-> **Nota de seguridad:** Los archivos `.env` reales están excluidos de Git en sus respectivos archivos `.gitignore`. Únicamente se versionan las plantillas `.env.example`.
+> **Nota de seguridad:** Los archivos `.env` reales están excluidos de Git en sus respectivos archivos `.gitignore`. Únicamente se versionan las plantillas `.env.example`. Además, el servidor backend valida al iniciar que la variable `JWT_SECRET` se encuentre definida en el archivo `.env`; si falta, el proceso se detiene con un mensaje de error.
 
 ---
 
@@ -229,10 +234,15 @@ API_BASE_URL=http://localhost:3000/api
    ```powershell
    npm install
    ```
-3. Crea el archivo `.env` a partir de la plantilla:
+3. Crea el archivo `.env` a partir de la plantilla y asigna una clave secreta a `JWT_SECRET`:
    ```powershell
    Copy-Item .env.example .env
    ```
+   Puedes generar una clave secreta aleatoria ejecutando:
+   ```powershell
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
+   Copia la clave generada y asígnala a `JWT_SECRET` en `backend/.env`.
 4. Inicia el servidor:
    ```powershell
    npm start

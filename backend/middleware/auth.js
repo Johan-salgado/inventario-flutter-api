@@ -13,7 +13,7 @@ function verificarToken(req, res, next) {
     return res.status(401).json({ error: 'Token de autenticacion no proporcionado' });
   }
 
-  const secret = process.env.JWT_SECRET || 'clave_secreta_jwt_inventario_uceva_2026';
+  const secret = process.env.JWT_SECRET;
 
   jwt.verify(token, secret, (err, decoded) => {
     if (err) {

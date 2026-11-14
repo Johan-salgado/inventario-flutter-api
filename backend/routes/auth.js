@@ -39,7 +39,7 @@ router.post('/login', (req, res) => {
       correo: usuario.correo
     };
 
-    const secret = process.env.JWT_SECRET || 'clave_secreta_jwt_inventario_uceva_2026';
+    const secret = process.env.JWT_SECRET;
     const expiresIn = process.env.JWT_EXPIRES_IN || '1h';
     const token = jwt.sign(payload, secret, { expiresIn });
 
