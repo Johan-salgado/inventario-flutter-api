@@ -1,28 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../models/producto.dart';
+import 'api_client.dart';
 
 class ProductoService {
-  late final Dio _dio;
-
-  ProductoService() {
-    String baseUrl = 'http://localhost:3000/api';
-    if (dotenv.isInitialized) {
-      baseUrl = dotenv.env['API_BASE_URL'] ?? baseUrl;
-    }
-
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: baseUrl,
-        connectTimeout: const Duration(seconds: 10),
-        receiveTimeout: const Duration(seconds: 10),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      ),
-    );
-  }
+  final Dio _dio = ApiClient().dio;
 
   Future<List<Producto>> obtenerProductos() async {
     try {
