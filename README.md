@@ -349,3 +349,33 @@ Commits semánticos utilizados:
 
 ### Confirmación de eliminación
 ![Confirmación de eliminación](capturas/flutter/06-eliminacion-confirmacion.png)
+
+---
+
+## 12. Capturas del Taller 2: Autenticación JWT
+
+### Acceso sin autenticación (escenario 1)
+Al abrir la aplicación sin sesión solo se muestra el login.
+![Login sin sesión](capturas/jwt/01-login-sin-sesion.png)
+
+### Credenciales incorrectas (escenario 2)
+![Credenciales incorrectas](capturas/jwt/02-login-credenciales-incorrectas.png)
+
+### Inicio de sesión correcto (escenario 3)
+![Dashboard tras el login](capturas/jwt/03-dashboard-login-correcto.png)
+
+### Consumo de servicios protegidos (escenario 4)
+![Listado autenticado](capturas/jwt/04-listado-productos-autenticado.png)
+![Registro de producto](capturas/jwt/05-registro-producto.png)
+![Producto creado](capturas/jwt/06-listado-producto-creado.png)
+![Edición de producto](capturas/jwt/07-edicion-producto.png)
+![Producto actualizado](capturas/jwt/08-producto-actualizado.png)
+![Confirmación de eliminación](capturas/jwt/09-eliminacion-confirmacion.png)
+![Producto eliminado](capturas/jwt/10-producto-eliminado.png)
+
+### Pantalla de sesión y rechazo del backend sin token (escenarios 6 y 7)
+En la terminal, `curl.exe` sin token y con un token falso responde `401 Unauthorized`.
+![Sesión y 401 del backend](capturas/jwt/11-sesion-y-backend-rechaza-sin-token.png)
+
+### Cierre de sesión (escenario 7)
+![Confirmación de cierre de sesión](capturas/jwt/12-cierre-de-sesion-confirmacion.png)
