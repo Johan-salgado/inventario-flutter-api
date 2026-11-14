@@ -1,16 +1,58 @@
-@baseUrl = http://localhost:3000/api/productos
+@baseUrl = http://localhost:3000/api
+@token = TU_TOKEN_AQUI
 
 ###
-GET {{baseUrl}}
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "correo": "admin@inventario.com",
+  "password": "admin123"
+}
 
 ###
-GET {{baseUrl}}/1
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "correo": "admin@inventario.com",
+  "password": "password_incorrecta"
+}
 
 ###
-GET {{baseUrl}}/9999
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "correo": "admin@inventario.com"
+}
 
 ###
-POST {{baseUrl}}
+GET {{baseUrl}}/auth/perfil
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}/productos
+
+###
+GET {{baseUrl}}/productos
+Authorization: Bearer token_falso_invalido
+
+###
+GET {{baseUrl}}/productos
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}/productos/1
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}/productos/9999
+Authorization: Bearer {{token}}
+
+###
+POST {{baseUrl}}/productos
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -23,7 +65,8 @@ Content-Type: application/json
 }
 
 ###
-POST {{baseUrl}}
+POST {{baseUrl}}/productos
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -31,7 +74,8 @@ Content-Type: application/json
 }
 
 ###
-POST {{baseUrl}}
+POST {{baseUrl}}/productos
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -44,7 +88,8 @@ Content-Type: application/json
 }
 
 ###
-PUT {{baseUrl}}/1
+PUT {{baseUrl}}/productos/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -57,4 +102,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{baseUrl}}/12
+DELETE {{baseUrl}}/productos/12
+Authorization: Bearer {{token}}

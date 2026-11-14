@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
 const dbPath = path.resolve(__dirname, 'inventario.db');
 
@@ -12,7 +13,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 function inicializarBaseDatos() {
-  const sqlCrearTabla = `
+  const sqlCrearTablaProductos = `
     CREATE TABLE IF NOT EXISTS productos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nombre TEXT NOT NULL,
@@ -24,7 +25,16 @@ function inicializarBaseDatos() {
     )
   `;
 
-  db.run(sqlCrearTabla, (err) => {
+  const sqlCrearTablaUsuarios = `
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT NOT NULL,
+      correo TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL
+    )
+  `;
+
+  db.run(sqlCrearTablaProductos, (err) => {
     if (err) return;
 
     db.get('SELECT COUNT(*) AS total FROM productos', (err, row) => {
@@ -56,6 +66,24 @@ function inicializarBaseDatos() {
           stmt.run(producto);
         });
         stmt.finalize();
+      }
+    });
+  });
+
+  db.run(sqlCrearTablaUsuarios, (err) => {
+    if (err) return;
+
+    db.get('SELECT COUNT(*) AS total FROM usuarios', (err, row) => {
+      if (err) return;
+
+      if (row.total === 0) {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync('admin123', salt);
+        const sqlInsertUsuario = `
+          INSERT INTO usuarios (nombre, correo, password)
+          VALUES (?, ?, ?)
+        `;
+        db.run(sqlInsertUsuario, ['Administrador', 'admin@inventario.com', hash]);
       }
     });
   });
